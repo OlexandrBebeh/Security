@@ -8,20 +8,24 @@
 class NgramsFrequency
 {
 public:
+	std::map<std::string, double> quadgrams_frequency;
 	std::map<std::string, double> trigrams_frequency;
 	std::map<std::string, double> bigrams_frequency;
 	std::map<std::string, double> monograms_frequency;
 
+	double quadgrams_floor;
 	double trigrams_floor;
 	double bigrams_floor;
 	double monograms_floor;
 
-	const double trigrams_influence = 0.5;
-	const double bigrams_influence = 0.3;
-	const double monograms_influence = 0.2;
+	const double quadgrams_influence = 0.4;
+	const double trigrams_influence = 0.3;
+	const double bigrams_influence = 0.2;
+	const double monograms_influence = 0.1;
 
 	NgramsFrequency()
 	{
+		quadgrams_floor = ReadFromTxT(quadgrams_frequency, "./resources/english_quadgrams.txt");
 		trigrams_floor = ReadFromTxT(trigrams_frequency, "./resources/english_trigrams.txt");
 		bigrams_floor = ReadFromTxT(bigrams_frequency, "./resources/english_bigrams.txt");
 		monograms_floor = ReadFromTxT(monograms_frequency, "./resources/english_monograms.txt");
@@ -57,7 +61,8 @@ public:
 
 	double Calculate(const std::string& text)
 	{
-		return  CalculateNgramsScore(text, trigrams_frequency, trigrams_floor) * trigrams_influence +
+		return  CalculateNgramsScore(text, quadgrams_frequency, quadgrams_floor) * quadgrams_influence +
+			CalculateNgramsScore(text, trigrams_frequency, trigrams_floor) * trigrams_influence +
 			CalculateNgramsScore(text, bigrams_frequency, bigrams_floor) * bigrams_influence +
 			CalculateNgramsScore(text, monograms_frequency, monograms_floor) * monograms_influence;
 	}
