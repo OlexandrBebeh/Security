@@ -34,13 +34,6 @@ class GeneticAlgorithm
 public:
     GeneticAlgorithm(std::string str) : text(str)
     {
-        //char ch = 'A';
-        //double frequency[] = { .082, .015, .028, .043, .127, .022, .020, .061, .070, .002, .008, .040, .024, .067, .075, .019, .001, .060, .063, .091, .028, .010, .023, .001, .020, .001 };
-        //for (int i = 0; i < 26; i++)
-        //{
-        //    indexies_of_frequency[ch] = frequency[i];
-        //    ch++;
-        //}
     };
 
     std::string SelectSubstring(const std::string& str, int separator)
@@ -56,7 +49,7 @@ public:
         return result;
     }
 
-    double IndexOfCoincidence(const std::string& str)
+    static double IndexOfCoincidence(const std::string& str)
     {
         std::map<char, int> temp_letters;
 
